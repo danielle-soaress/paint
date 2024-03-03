@@ -1,0 +1,9 @@
+$main-theme-yellow: #FFCD83;
+$main-theme-black: #262626;
+
+@mixin flexCenter() {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}

@@ -1,0 +1,10 @@
+@use '../../base';
+
+
+.colors_container {
+    @include base.flexCenter;
+    flex-direction: row;
+    gap: 10px;
+
+    
+}

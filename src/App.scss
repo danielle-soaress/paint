@@ -1,0 +1,30 @@
+@use 'base';
+
+html {
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
+
+* {
+ box-sizing: border-box;
+ font-family: "Nunito", sans-serif;  
+ font-weight: 400;
+ font-size: 16px;
+ margin: 0;
+ padding: 0;
+}
+
+body {
+    background-color:base.$main-theme-black;
+    width: 100vw;
+    height: 100vh;
+}
+
+.main_container {
+    @include base.flexCenter;
+    width: 100vw;
+    height: 100vh;
+    gap: 15px;
+    padding: 30px;
+}
+

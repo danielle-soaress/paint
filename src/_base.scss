@@ -1,5 +1,8 @@
-$main-theme-yellow: #FFCD83;
+$main-theme-blue: #69C0FF;
 $main-theme-black: #262626;
+$tools_container-border-radius: 10px;
+$tools_container-padding-width: 15px;
+$tools_container-height: 50px;
 
 @mixin flexCenter() {
     display: flex;

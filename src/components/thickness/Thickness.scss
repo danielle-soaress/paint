@@ -1,0 +1,13 @@
+@use '../../base';
+
+.thickness_container {
+    @include base.flexCenter;
+    height: base.$tools_container-height;
+    width: base.$tools_container-height;
+    border-radius: base.$tools_container-border-radius;
+    background-color: white;
+
+    .thickness_icon {
+        width: 32px;
+    }
+}

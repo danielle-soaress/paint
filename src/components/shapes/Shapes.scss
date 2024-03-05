@@ -1,0 +1,21 @@
+@use '../../base';
+
+.shapes_container {
+    @include base.flexCenter;
+    flex-direction: row;
+    gap: 15px;
+    height: base.$tools_container-height;
+    background-color: white;
+    padding: 0px base.$tools_container-padding-width;
+    border-radius: base.$tools_container-border-radius;
+
+    .bi {
+        @include base.flexCenter;
+        color: black;
+        font-size: 25px;
+    }
+
+    .bi-dash-lg {
+        font-size: 30px;
+    }
+}

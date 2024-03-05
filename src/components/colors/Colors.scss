@@ -4,7 +4,24 @@
 .colors_container {
     @include base.flexCenter;
     flex-direction: row;
-    gap: 10px;
+    gap: 15px;
 
+    .last_colors {
+        @include base.flexCenter;
+        height: base.$tools_container-height;
+        flex-direction: row;
+        background-color: white;
+        padding: 0px base.$tools_container-padding-width;
+        gap: 15px;
+        border-radius: base.$tools_container-border-radius;
+    }
+
+    .current_color {
+        @include base.flexCenter;
+        height: base.$tools_container-height;
+        padding: 0px base.$tools_container-padding-width;
+        background-color: white;
+        border-radius: base.$tools_container-border-radius;
+    }
     
 }

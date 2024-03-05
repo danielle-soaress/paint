@@ -4,14 +4,17 @@ import Circle from "../circle/Circle.jsx"
 
 
 function Colors() {
+    const colorsRadius = '30px';
     return (
         <div className="colors_container">
-            <div className=" current_color">
-                <Title title="Current color"/>
-                <Circle radius="10px" color="black"/>
+            <div className="last_colors">
+                <Circle radius={colorsRadius} color="pink"/>
+                <Circle radius={colorsRadius} color="lightyellow"/>
+                <Circle radius={colorsRadius} color="lightgreen"/>
+                <Circle radius={colorsRadius} color="lightblue"/>
             </div>
-            <div className="color_cont last_colors">
-
+            <div className="current_color">
+                <Circle radius={colorsRadius} color="#ffff"/>
             </div>
         </div>
     )

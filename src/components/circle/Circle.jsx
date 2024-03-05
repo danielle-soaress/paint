@@ -1,16 +1,17 @@
-import './Circle.scss';
+
 
 function Circle(props) {
 
     const circleStyle = {
-        width: `${props.radius}`,
-        height: `${props.radius}`,
-        backgroundColor: `${props.color}`,
-        boxShadow: 'inset 1px 1px 5px gray'
+        width: props.radius,
+        height: props.radius,
+        backgroundColor: props.color,
+        borderRadius: props.radius,
+        border: '0.5px black solid'
     };
 
     return (
-        <span style={circleStyle}></span>
+        <div style={circleStyle}></div>
     )
 }
 

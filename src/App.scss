@@ -6,16 +6,16 @@ html {
 }
 
 * {
- box-sizing: border-box;
- font-family: "Nunito", sans-serif;  
- font-weight: 400;
- font-size: 16px;
- margin: 0;
- padding: 0;
+    box-sizing: border-box;
+    font-family: "Nunito", sans-serif;  
+    font-weight: 400;
+    font-size: 16px;
+    margin: 0;
+    padding: 0;
 }
 
 body {
-    background-color:base.$main-theme-black;
+    background-color:base.$main-theme-blue;
     width: 100vw;
     height: 100vh;
 }
@@ -25,6 +25,13 @@ body {
     width: 100vw;
     height: 100vh;
     gap: 15px;
-    padding: 30px;
+    padding: 25px;
+
+    .logo {
+        position: absolute;
+        top: 35px;
+        left: 50px;
+        width: 200px;
+    }
 }
 

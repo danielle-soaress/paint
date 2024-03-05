@@ -9,11 +9,6 @@ function DrawArea() {
     const [strokeColor, setStrokeColor] = useState('#00000');
 
     useEffect(()=>{
-        const colorInput = document.querySelector('#currentColor');
-        colorInput.addEventListener('blur', () => {
-            setStrokeColor(colorInput.value);
-        })
-
 
         const canvas = canvasRef.current;
 
@@ -30,6 +25,25 @@ function DrawArea() {
 
         context.lineCap="round";
         context.lineWidth = 5;
+
+
+        // to change stroke color
+
+            // when a color is chose from color picker
+        const colorInput = document.querySelector('#currentColor');
+        colorInput.addEventListener('blur', () => {
+            setStrokeColor(colorInput.value);
+        })
+
+        const lastColors = document.querySelectorAll('.circle')
+
+            // when a color from 'last colors' is picked
+        Array.from(lastColors).map( (item) => {
+            item.addEventListener ("click", (e) => {
+                setStrokeColor(item.getAttribute('color'))
+            })
+        })
+
 
     }, []);
 

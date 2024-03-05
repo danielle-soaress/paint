@@ -1,10 +1,26 @@
 import './Colors.scss';
 import Title from '../title/Title.jsx'
 import Circle from "../circle/Circle.jsx"
+import {useRef, useEffect, useState} from 'react'
 
 
 function Colors() {
     const colorsRadius = '30px';
+    const currentColorRef = useRef(null);
+    const inputColorRef = useRef(null);
+    const [color, setColor] = useState('#ffffff')
+
+
+    useEffect(() => {
+        setColor(inputColorRef.current.value);
+        console.log(color)
+    }, [])
+    
+
+
+
+
+
     return (
         <div className="colors_container">
             <div className="last_colors">
@@ -14,7 +30,7 @@ function Colors() {
                 <Circle radius={colorsRadius} color="lightblue"/>
             </div>
             <div className="current_color">
-                <Circle radius={colorsRadius} color="#ffff"/>
+                <input ref={inputColorRef} type="color" id="currentColor"/>
             </div>
         </div>
     )

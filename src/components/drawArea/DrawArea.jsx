@@ -6,9 +6,15 @@ function DrawArea() {
     const canvasRef = useRef(null);
     const contextRef=useRef(null);
     const [isDrawing, setIsDrawing] = useState(false);
+    const [strokeColor, setStrokeColor] = useState('#00000');
 
     useEffect(()=>{
-        
+        const colorInput = document.querySelector('#currentColor');
+        colorInput.addEventListener('blur', () => {
+            setStrokeColor(colorInput.value);
+        })
+
+
         const canvas = canvasRef.current;
 
         canvas.width = window.innerWidth * 2;
@@ -24,7 +30,6 @@ function DrawArea() {
 
         context.lineCap="round";
         context.lineWidth = 5;
-        context.strokeStyle="black";
 
     }, []);
 
@@ -39,6 +44,7 @@ function DrawArea() {
         if (isDrawing) {
             const {offsetX, offsetY} = nativeEvent;
             contextRef.current.lineTo(offsetX, offsetY);
+            contextRef.current.strokeStyle=`${strokeColor}`;
             contextRef.current.stroke();  
         } else {
             return;

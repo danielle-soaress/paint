@@ -3,11 +3,11 @@ import './Shapes.scss'
 function Shapes(props) {
     return (
         <div className="shapes_container">
-            <i class="bi bi-circle"></i>
-            <i class="bi bi-square"></i>
-            <i class="bi bi-triangle"></i>
-            <i class="bi bi-arrow-up-right"></i>
-            <i class="bi bi-dash-lg"></i>
+            <i className="bi bi-circle"></i>
+            <i className="bi bi-square"></i>
+            <i className="bi bi-triangle"></i>
+            <i className="bi bi-arrow-up-right"></i>
+            <i className="bi bi-dash-lg"></i>
         </div>
     )
 }

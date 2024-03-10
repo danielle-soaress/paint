@@ -25,9 +25,6 @@ function Colors() {
         }
 
         setLastColors(newArr);
-
-        console.log(newArr)
-        console.log(lastColors)
         
         color1.current.style.backgroundColor = `${newArr[0]}`;
         color2.current.style.backgroundColor = `${newArr[1]}`;
@@ -37,19 +34,19 @@ function Colors() {
     }
 
     const selectColor = (e) => {
-        let cor = e.target.getAttribute("style")
-        console.log(cor)
-        inputColorRef.current.value = cor;
+        let targetNumber = e.target.getAttribute('id').substring(1);
+        console.log(lastColors[targetNumber])
+        inputColorRef.current.value = lastColors[targetNumber];
     }
 
 
     return (
         <div className="colors_container">
-            <div className="last_colors">
-                <span ref={color1} color={lastColors[0]} className="circle" onClick={selectColor} style={{backgroundColor: "pink"}}></span>
-                <span ref={color2} color={lastColors[1]} className="circle" onClick={selectColor} style={{backgroundColor: "lightgreen"}}></span>
-                <span ref={color3} color={lastColors[2]} className="circle" onClick={selectColor} style={{backgroundColor: "lightyellow"}}></span>
-                <span ref={color4} color={lastColors[3]} className="circle" onClick={selectColor} style={{backgroundColor: "lightblue"}}></span>
+            <div data={lastColors} className="last_colors">
+                <span ref={color1} id="c0" color={lastColors[0]} className="circle" onClick={selectColor} style={{backgroundColor: "pink"}}></span>
+                <span ref={color2} id="c1" color={lastColors[1]} className="circle" onClick={selectColor} style={{backgroundColor: "lightgreen"}}></span>
+                <span ref={color3} id="c2" color={lastColors[2]} className="circle" onClick={selectColor} style={{backgroundColor: "lightyellow"}}></span>
+                <span ref={color4} id="c3" color={lastColors[3]} className="circle" onClick={selectColor} style={{backgroundColor: "lightblue"}}></span>
             </div>
             <div className="current_color">
                 <input ref={inputColorRef} onBlur={changeColor} type="color" id="currentColor"/>

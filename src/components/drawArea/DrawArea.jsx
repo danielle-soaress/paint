@@ -7,15 +7,24 @@ function DrawArea() {
     const contextRef=useRef(null);
     const [isDrawing, setIsDrawing] = useState(false);
     const [strokeColor, setStrokeColor] = useState('#00000');
+    const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+    const [windowHeight, setWindowHeight] = useState(window.innerHeight);
+    const [lineWidth, setLineWidth] = useState(5)
+
+    window.onresize = () => {
+        setWindowWidth(window.innerWidth);
+        setWindowHeight(window.innerHeight);
+    }
+
+
 
     useEffect(()=>{
 
-        const canvas = canvasRef.current;
-
-        canvas.width = window.innerWidth * 2;
-        canvas.height = window.innerHeight * 2;
-        canvas.style.width = `${window.innerWidth}px`;
-        canvas.style.height = `${window.innerHeight}px`;
+        const canvas = canvasRef.current;   
+        canvas.width = windowWidth * 2;
+        canvas.height = windowHeight * 2;
+        canvas.style.width = `${windowWidth}px`;
+        canvas.style.height = `${windowHeight}px`;
         canvas.style.backgroundColor = 'white';
         canvas.style.margin = "0px 30px";
 
@@ -24,7 +33,7 @@ function DrawArea() {
         contextRef.current = context;
 
         context.lineCap="round";
-        context.lineWidth = 5;
+        context.lineWidth = lineWidth;
 
 
         // to change stroke color
@@ -34,16 +43,32 @@ function DrawArea() {
         colorInput.addEventListener('blur', () => {
             setStrokeColor(colorInput.value);
         })
-
+             // when a color from 'last colors' is picked
         const lastColors = document.querySelectorAll('.circle')
-
-            // when a color from 'last colors' is picked
+        
         Array.from(lastColors).map( (item) => {
             item.addEventListener ("click", (e) => {
-                setStrokeColor(item.getAttribute('color'))
+                let father = e.target.parentElement.getAttribute('data').split(',');
+                let targetNumber = e.target.getAttribute('id').substring(1);
+                setStrokeColor(father[targetNumber])
+
             })
         })
 
+        // to clear canvas
+        const clearEl = document.getElementById("clearCanva");
+        clearEl.addEventListener('click', () => {
+            context.clearRect(0,0,canvas.width, canvas.height)
+        })
+
+        // to change line width
+        const thicknessContainer = document.querySelector(".thickness_container");
+        const lineWidthEl = document.getElementById("lineWidthEl");
+
+        thicknessContainer.addEventListener('click', () => {
+            setLineWidth(lineWidthEl.innerHTML)
+        })
+        
 
     }, []);
 
@@ -57,8 +82,9 @@ function DrawArea() {
     const draw = ({nativeEvent}) => {
         if (isDrawing) {
             const {offsetX, offsetY} = nativeEvent;
-            contextRef.current.lineTo(offsetX, offsetY);
+            contextRef.current.lineWidth = lineWidth;
             contextRef.current.strokeStyle=`${strokeColor}`;
+            contextRef.current.lineTo(offsetX, offsetY);
             contextRef.current.stroke();  
         } else {
             return;

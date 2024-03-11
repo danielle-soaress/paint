@@ -12,6 +12,11 @@ function DrawArea() {
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
     const [windowHeight, setWindowHeight] = useState(window.innerHeight);
     const [lineWidth, setLineWidth] = useState(5)
+    
+    const [drawFig, setDrawFig] = useState(false);
+    const [fig, setFig] = useState(null);
+    const [figCoords, setFigCoords] = useState([]); // [startX, startY]
+
     const [eraserStyle, setEraserStyle] = useState({
         width: '5px',
         height: '5px',
@@ -67,6 +72,8 @@ function DrawArea() {
 
         pencil.addEventListener('click', () => {
             setStrokeColor(colorInput.value);
+            setDrawFig(false)
+            pencil.style.color = "#69C0FF";
         })
 
              // when a color from 'last colors' is picked
@@ -92,6 +99,17 @@ function DrawArea() {
         thicknessContainer.addEventListener('click', () => {
             setLineWidth(lineWidthEl.innerHTML)
         })
+
+        // selecting the shapes
+
+        const squareEl = document.getElementById('square')
+        
+        squareEl.addEventListener("click", () => {
+            setDrawFig(true)
+            setFig('square')
+            pencil.style.color = "black";
+            eraser.style.color = "black";
+        })
         
 
     }, []);
@@ -101,6 +119,11 @@ function DrawArea() {
         contextRef.current.beginPath()
         contextRef.current.moveTo(offsetX, offsetY)
         setIsDrawing(true)
+
+        if (drawFig) {
+            canvasRef.current.style.cursor = "crosshair"
+            setFigCoords([offsetX, offsetY]);
+        }
     }
 
     const draw = ({nativeEvent}) => {
@@ -112,27 +135,54 @@ function DrawArea() {
             top: `${offsetY-lineWidth/2}px`,
             left: `${offsetX-lineWidth/2}px`
         })
-        
 
-        if (isDrawing) {
-            contextRef.current.lineWidth = lineWidth;
-            contextRef.current.strokeStyle=`${strokeColor}`;
-            contextRef.current.lineTo(offsetX, offsetY);
-            contextRef.current.stroke();  
-        } else {
-            return;
+        if (!drawFig) {
+            if (isDrawing) {
+                contextRef.current.lineWidth = lineWidth;
+                contextRef.current.strokeStyle=`${strokeColor}`;
+                contextRef.current.lineTo(offsetX, offsetY);
+                contextRef.current.stroke();  
+            } else {
+                return;
+            }
         }
+
     }
 
-    const stopDraw = () => {
+    const stopDraw = ({nativeEvent}) => {
+        const {offsetX, offsetY} = nativeEvent;
+
         contextRef.current.closePath();
         setIsDrawing(false);
+
+        if (drawFig) {
+            let startCoords = figCoords
+            let endYCoord = Math.abs(startCoords[1]-offsetY);
+            let endXCoord = Math.abs(startCoords[0]-offsetX);
+            
+            switch (fig) {
+                case "square":
+                    drawRect(startCoords [0], startCoords[1], endXCoord, endYCoord)
+                    break;
+            }
+            canvasRef.current.style.cursor = "none"
+        }
     }
 
     const hideCursor = () => {
         setEraserStyle({
             backgroundColor: 'transparent',
         })
+    }
+
+    // function to draw a rect
+
+    const drawRect = (x,y, width, height) => {
+        contextRef.current.beginPath();
+        contextRef.current.rect(x, y, width, height);
+        contextRef.current.lineWidth = 7;
+        contextRef.current.strokeStyle = `${strokeColor}`
+        contextRef.current.stroke();
     }
 
 

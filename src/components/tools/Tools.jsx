@@ -3,7 +3,7 @@ import {useState} from 'react'
 
 function Tools(props) {
 
-    const [selectedTool, setSelectedTool] = useState(0)
+    const [selectedTool, setSelectedTool] = useState(1)
 
     const toolStyle = {
         fontSize: '12px',

@@ -1,20 +1,29 @@
-//import './DrawArea.scss';
+import './DrawArea.scss';
 import {useEffect, useRef, useState} from "react";
 
 function DrawArea() {
     
     const canvasRef = useRef(null);
     const contextRef=useRef(null);
+    const cursorRef = useRef(null);
     const [isDrawing, setIsDrawing] = useState(false);
     const [strokeColor, setStrokeColor] = useState('#00000');
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
     const [windowHeight, setWindowHeight] = useState(window.innerHeight);
     const [lineWidth, setLineWidth] = useState(5)
+    const [eraserStyle, setEraserStyle] = useState({
+        width: '5px',
+        height: '5px',
+        backgroundColor: 'black',
+        top: '10px',
+        left: '10px'
+    })
 
     window.onresize = () => {
         setWindowWidth(window.innerWidth);
         setWindowHeight(window.innerHeight);
     }
+
 
 
 
@@ -41,8 +50,6 @@ function DrawArea() {
         eraser.addEventListener('click', () => {
             setStrokeColor('#ffffff');
         })
-
-
 
         // to change stroke color
 
@@ -98,8 +105,17 @@ function DrawArea() {
     }
 
     const draw = ({nativeEvent}) => {
+        const {offsetX, offsetY} = nativeEvent;
+        setEraserStyle({
+            width: `${lineWidth}px`,
+            height:  `${lineWidth}px`,
+            backgroundColor: strokeColor,
+            top: `${offsetY-lineWidth/2}px`,
+            left: `${offsetX-lineWidth/2}px`
+        })
+        
+
         if (isDrawing) {
-            const {offsetX, offsetY} = nativeEvent;
             contextRef.current.lineWidth = lineWidth;
             contextRef.current.strokeStyle=`${strokeColor}`;
             contextRef.current.lineTo(offsetX, offsetY);
@@ -114,16 +130,31 @@ function DrawArea() {
         setIsDrawing(false);
     }
 
+    const hideCursor = () => {
+        setEraserStyle({
+            backgroundColor: 'transparent',
+        })
+    }
+
+
     
 
     return (
+        <>
+            <div
+            style={eraserStyle} 
+            className="custom_cursor"
+            useRef={cursorRef}
+            ></div>
             <canvas 
             ref={canvasRef} 
-            className="draw_area_container"
             onMouseMove={draw}
             onMouseDown={startDraw}
             onMouseUp={stopDraw}
+            onMouseOut={hideCursor}
+            style={{cursor: 'pointer'}}
             />
+        </>
     )
 }
 

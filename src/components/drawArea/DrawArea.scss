@@ -1,7 +1,9 @@
-.draw_area_container {
-    background-color: white;
-    width: 100%;
-    height: 95%;
-    border-radius:15px;
-    
+.custom_cursor {
+    position: fixed;
+    background-color: red;
+    border-radius: 100%;
+    border: 1px solid rgba(0, 0, 0, 0.377);
+    pointer-events: none;
+    z-index: 9999;
+    cursor: none;
 }

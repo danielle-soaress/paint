@@ -35,6 +35,14 @@ function DrawArea() {
         context.lineCap="round";
         context.lineWidth = lineWidth;
 
+        // changing to eraser
+        const eraser = document.querySelector("#eraser");
+
+        eraser.addEventListener('click', () => {
+            setStrokeColor('#ffffff');
+        })
+
+
 
         // to change stroke color
 
@@ -43,6 +51,16 @@ function DrawArea() {
         colorInput.addEventListener('blur', () => {
             setStrokeColor(colorInput.value);
         })
+
+            // when the pencil is selected
+
+                // changing to pencil
+        const pencil = document.querySelector("#pencil")
+
+        pencil.addEventListener('click', () => {
+            setStrokeColor(colorInput.value);
+        })
+
              // when a color from 'last colors' is picked
         const lastColors = document.querySelectorAll('.circle')
         
@@ -99,13 +117,13 @@ function DrawArea() {
     
 
     return (
-        <canvas 
-        ref={canvasRef} 
-        className="draw_area_container"
-        onMouseMove={draw}
-        onMouseDown={startDraw}
-        onMouseUp={stopDraw}
-        />
+            <canvas 
+            ref={canvasRef} 
+            className="draw_area_container"
+            onMouseMove={draw}
+            onMouseDown={startDraw}
+            onMouseUp={stopDraw}
+            />
     )
 }
 

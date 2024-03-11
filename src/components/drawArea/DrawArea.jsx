@@ -1,5 +1,6 @@
 import './DrawArea.scss';
 import {useEffect, useRef, useState} from "react";
+import { getLastColors, addColors} from '../colors/lastColors';
 
 function DrawArea() {
     
@@ -73,10 +74,8 @@ function DrawArea() {
         
         Array.from(lastColors).map( (item) => {
             item.addEventListener ("click", (e) => {
-                let father = e.target.parentElement.getAttribute('data').split(',');
-                let targetNumber = e.target.getAttribute('id').substring(1);
-                setStrokeColor(father[targetNumber])
-
+                let elID = e.target.getAttribute('id').substring(1);
+                setStrokeColor(getLastColors()[elID])
             })
         })
 
@@ -152,7 +151,7 @@ function DrawArea() {
             onMouseDown={startDraw}
             onMouseUp={stopDraw}
             onMouseOut={hideCursor}
-            style={{cursor: 'pointer'}}
+            style={{cursor: 'none'}}
             />
         </>
     )

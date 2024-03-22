@@ -1,6 +1,6 @@
 import './Colors.scss';
-import {useRef, useEffect, useState} from 'react'
-import {getLastColors, addColors} from './lastColors.jsx';
+import {useRef, useState} from 'react'
+import {getLastColors, addColors} from '../../appData.jsx';
 
 function Colors() {
     const inputColorRef = useRef(null);

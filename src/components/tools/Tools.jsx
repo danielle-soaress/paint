@@ -1,14 +1,10 @@
 import './Tools.scss'
 import {useState} from 'react'
 
-function Tools(props) {
+function Tools() {
 
     const [selectedTool, setSelectedTool] = useState(1)
 
-    const toolStyle = {
-        fontSize: '12px',
-        color: props.color,
-    }
 
     const selectedStyle = {
         color: '#69C0FF'

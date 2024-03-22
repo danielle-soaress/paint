@@ -1,6 +1,6 @@
 import './DrawArea.scss';
 import {useEffect, useRef, useState} from "react";
-import { getLastColors, addColors} from '../colors/lastColors';
+import { getLastColors, addColors} from '../../appData.jsx';
 
 function DrawArea() {
     
@@ -63,6 +63,7 @@ function DrawArea() {
         const colorInput = document.querySelector('#currentColor');
         colorInput.addEventListener('blur', () => {
             setStrokeColor(colorInput.value);
+
         })
 
             // when the pencil is selected
@@ -158,9 +159,10 @@ function DrawArea() {
 
         if (drawFig) {
             let startCoords = figCoords
-            let endYCoord = Math.abs(startCoords[1]-offsetY);
-            let endXCoord = Math.abs(startCoords[0]-offsetX);
+            let endYCoord = -(startCoords[1]-offsetY);
+            let endXCoord = -(startCoords[0]-offsetX);
             
+
             switch (fig) {
                 case "square":
                     drawRect(startCoords [0], startCoords[1], endXCoord, endYCoord)

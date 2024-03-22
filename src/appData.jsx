@@ -1,3 +1,6 @@
+
+// the last colors
+
 var lastColors = ['#ffc0cb','#90ee90', '#ffffe0', '#add8e6'];
 
 export const addColors = (color) => {

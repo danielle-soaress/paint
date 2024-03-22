@@ -17,7 +17,7 @@ function DrawArea() {
     const [fig, setFig] = useState(null);
     const [figCoords, setFigCoords] = useState([]); // [startX, startY]
 
-    const [eraserStyle, setEraserStyle] = useState({
+    const [brushStyle, setBrushStyle] = useState({
         width: '5px',
         height: '5px',
         backgroundColor: 'black',
@@ -98,6 +98,7 @@ function DrawArea() {
 
         thicknessContainer.addEventListener('click', () => {
             setLineWidth(lineWidthEl.innerHTML)
+            setStrokeColor(colorInput.value);
         })
 
         // selecting the shapes
@@ -128,7 +129,7 @@ function DrawArea() {
 
     const draw = ({nativeEvent}) => {
         const {offsetX, offsetY} = nativeEvent;
-        setEraserStyle({
+        setBrushStyle({
             width: `${lineWidth}px`,
             height:  `${lineWidth}px`,
             backgroundColor: strokeColor,
@@ -170,8 +171,8 @@ function DrawArea() {
     }
 
     const hideCursor = () => {
-        setEraserStyle({
-            backgroundColor: 'transparent',
+        setBrushStyle({
+            bacgkroundColor: 'transparent',
         })
     }
 
@@ -191,7 +192,7 @@ function DrawArea() {
     return (
         <>
             <div
-            style={eraserStyle} 
+            style={brushStyle} 
             className="custom_cursor"
             useRef={cursorRef}
             ></div>

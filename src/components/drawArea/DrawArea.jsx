@@ -104,14 +104,41 @@ function DrawArea() {
 
         // selecting the shapes
 
-        const squareEl = document.getElementById('square')
+        const shapes = document.querySelectorAll('.shape')
         
-        squareEl.addEventListener("click", () => {
+        // circle 
+        shapes[0].addEventListener("click", () => {
+            setDrawFig(true)
+            setFig('circle')
+            pencil.style.color = "black";
+            eraser.style.color = "black";
+        })
+
+        // square
+        shapes[1].addEventListener("click", () => {
             setDrawFig(true)
             setFig('square')
             pencil.style.color = "black";
             eraser.style.color = "black";
         })
+
+        //triangule
+        shapes[2].addEventListener("click", () => {
+            setDrawFig(true)
+            setFig('triangule')
+            pencil.style.color = "black";
+            eraser.style.color = "black";
+        })
+        
+        //line
+        shapes[4].addEventListener("click", () => {
+            setDrawFig(true)
+            setFig('line')
+            pencil.style.color = "black";
+            eraser.style.color = "black";
+        })
+
+        
         
 
     }, []);
@@ -159,13 +186,22 @@ function DrawArea() {
 
         if (drawFig) {
             let startCoords = figCoords
-            let endYCoord = -(startCoords[1]-offsetY);
-            let endXCoord = -(startCoords[0]-offsetX);
-            
+            let widthY = -(startCoords[1]-offsetY);
+            let widthX = -(startCoords[0]-offsetX);
+            let radius = Math.sqrt(widthX**2+widthY**2)
 
             switch (fig) {
                 case "square":
-                    drawRect(startCoords [0], startCoords[1], endXCoord, endYCoord)
+                    drawRect(startCoords [0], startCoords[1], widthX, widthY)
+                    break;
+                case "line":
+                    drawLine(startCoords [0], startCoords[1], offsetX, offsetY)
+                    break;
+                case "circle":
+                    drawCircle(startCoords[0], startCoords[1], radius);
+                    break;
+                case "triangule":
+                    drawTriangule(startCoords [0], startCoords[1], offsetX, offsetY)
                     break;
             }
             canvasRef.current.style.cursor = "none"
@@ -183,13 +219,42 @@ function DrawArea() {
     const drawRect = (x,y, width, height) => {
         contextRef.current.beginPath();
         contextRef.current.rect(x, y, width, height);
-        contextRef.current.lineWidth = 7;
+        contextRef.current.lineWidth = lineWidth;
         contextRef.current.strokeStyle = `${strokeColor}`
         contextRef.current.stroke();
     }
 
+    // function to draw a line
 
+    const drawLine = (xStart, yStart, xEnd, yEnd) => {
+        contextRef.current.beginPath();
+        contextRef.current.moveTo(xStart,yStart);
+        contextRef.current.lineWidth = lineWidth;
+        contextRef.current.lineTo(xEnd, yEnd);
+        contextRef.current.stroke();
+    }
     
+    // function to draw a circle
+
+    const drawCircle = (centerX, centerY, radius) => {
+        contextRef.current.beginPath();
+        contextRef.current.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);
+        contextRef.current.lineWidth = lineWidth;
+        contextRef.current.strokeStyle= `${strokeColor}`;
+        contextRef.current.stroke();
+    }
+
+    const drawTriangule = (xStart, yStart, xEnd, yEnd) => {
+        contextRef.current.beginPath();
+        contextRef.current.moveTo(xStart,yStart);
+        contextRef.current.lineTo(xEnd, yEnd);
+        contextRef.current.lineTo(xEnd, yStart);
+        contextRef.current.lineTo(xStart,yStart);
+        contextRef.current.lineWidth = lineWidth;
+        contextRef.current.strokeStyle= `${strokeColor}`;
+        contextRef.current.stroke();
+    }
+
 
     return (
         <>

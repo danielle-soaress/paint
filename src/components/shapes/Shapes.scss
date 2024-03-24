@@ -13,9 +13,15 @@
         @include base.flexCenter;
         color: black;
         font-size: 25px;
+        cursor: pointer;
     }
 
     .bi-dash-lg {
         font-size: 30px;
+    }
+
+   
+    #triangule, #arrow {
+        cursor: default;
     }
 }

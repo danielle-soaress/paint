@@ -19,9 +19,12 @@
     .bi-dash-lg {
         font-size: 30px;
     }
-
    
     #triangule, #arrow {
         cursor: default;
+    }
+
+    .selected {
+        color: base.$main-theme-blue;
     }
 }

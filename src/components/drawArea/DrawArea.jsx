@@ -35,6 +35,8 @@ function DrawArea() {
 
     useEffect(()=>{
 
+        const shapes = document.querySelectorAll('.shape')
+
         const canvas = canvasRef.current;   
         canvas.width = windowWidth * 2;
         canvas.height = windowHeight * 2;
@@ -55,6 +57,8 @@ function DrawArea() {
 
         eraser.addEventListener('click', () => {
             setStrokeColor('#ffffff');
+            deselectShapes()
+            setDrawFig(false)
         })
 
         // to change stroke color
@@ -75,6 +79,7 @@ function DrawArea() {
             setStrokeColor(colorInput.value);
             setDrawFig(false)
             pencil.style.color = "#69C0FF";
+            deselectShapes()
         })
 
              // when a color from 'last colors' is picked
@@ -103,13 +108,13 @@ function DrawArea() {
         })
 
         // selecting the shapes
-
-        const shapes = document.querySelectorAll('.shape')
         
         // circle 
         shapes[0].addEventListener("click", () => {
             setDrawFig(true)
             setFig('circle')
+
+            selectShape(0)
             pencil.style.color = "black";
             eraser.style.color = "black";
         })
@@ -118,6 +123,7 @@ function DrawArea() {
         shapes[1].addEventListener("click", () => {
             setDrawFig(true)
             setFig('square')
+            selectShape(1)
             pencil.style.color = "black";
             eraser.style.color = "black";
         })
@@ -126,19 +132,30 @@ function DrawArea() {
         shapes[2].addEventListener("click", () => {
             setDrawFig(true)
             setFig('triangule')
+            selectShape(2)
             pencil.style.color = "black";
             eraser.style.color = "black";
         })
         
         //line
-        shapes[4].addEventListener("click", () => {
+        shapes[3].addEventListener("click", () => {
             setDrawFig(true)
             setFig('line')
+            selectShape(3)
             pencil.style.color = "black";
             eraser.style.color = "black";
         })
 
-        
+        function selectShape(index) {
+            deselectShapes()
+            shapes[index].style.color = "#69C0FF"
+        }
+
+        function deselectShapes() {
+            for (let i = 0; i<shapes.length; i++) {
+                shapes[i].style.color = "black"
+            }
+        }
         
 
     }, []);
